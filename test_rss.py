@@ -8,8 +8,8 @@ from sentiment import Sentiment
 rss_feed = 'https://finance.yahoo.com/news/rssindex'
 
 rsh = RSSHelper()
-links = rsh.get_rss_links(rss_feed,5)
-pprint.pprint(links[0])
+links = rsh.get_rss_links(rss_feed,1)
+pprint.pprint(links)
 parser = HTML_Parser()
 '''
  This range [0:1] is just for test

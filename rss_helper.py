@@ -17,9 +17,10 @@ class RSSHelper:
     def get_rss_links(self, rss_feed,beforeDays = 1) -> list[str]:
         current_time = datetime.now() - timedelta(days=beforeDays)
         #final time format
-        format = "%Y-%m-%d %H:%M:%S.%S"
+        format = "%Y-%m-%d %H:%M:%S.%f"
 
-        newformat = "%a, %d %b %Y %H:%M:%S %Z"
+        #newformat = "%a, %d %b %Y %H:%M:%S %Z"
+        newformat = "%Y-%m-%dT%H:%M:%SZ"
         new_current_time = datetime.strptime(str(current_time),format)
         #new_current_time = current_time.strptime(newformat)
         rss_feed = feedparser.parse(rss_feed)
