@@ -11,6 +11,5 @@ parser = HTML_Parser()
 '''
  This range [0:1] is just for test
 '''
-
 text_content = [parser.extract_text_from_single_web_page(url) for url in links[0:1]]
 pprint.pprint(text_content[0])
