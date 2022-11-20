@@ -34,5 +34,7 @@ class Sentiment:
      
         else :
             print("Neutral")
- 
+        
+        
+        return sentiment_dict
  
