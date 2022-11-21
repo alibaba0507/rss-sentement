@@ -5,11 +5,18 @@ from html_parser import HTML_Parser
 from sentiment import Sentiment
 #import en_core_web_sm
 
-rss_feed = 'https://finance.yahoo.com/news/rssindex'
-
+#rss_feed = 'https://finance.yahoo.com/news/rssindex'
+rss_feed = 'https://www.actionforex.com/category/contributors/technical-analysis/feed/'
 rsh = RSSHelper()
-links = rsh.get_rss_links(rss_feed,1)
-pprint.pprint(links)
+#links = rsh.get_rss_links(rss_feed,2)
+links = rsh.get_posts_details(rss_feed,3,"description","Euro")
+#pprint.pprint(links)
+#links = rsh.get_rss_descr(rss_feed)
+s  = Sentiment()
+for link in links["posts"]:
+    l = s.split_on_sentences(link["description"],"Euro")
+    pprint.pprint(s.sentiment_scores(l)["compound"])
+    
 parser = HTML_Parser()
 '''
  This range [0:1] is just for test

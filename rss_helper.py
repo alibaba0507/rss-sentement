@@ -3,8 +3,12 @@
  "TypeError: 'type' object is not subscriptable" because of  -> list[str] 
 '''
 from __future__ import annotations
-from datetime import date, datetime,timedelta
+from datetime import date, datetime,timedelta,timezone
+import pytz
 import feedparser
+import dateutil.parser as parser
+import pprint
+import re
 
 class RSSHelper:
     def __init__(self) -> None:
@@ -30,9 +34,22 @@ class RSSHelper:
     def get_rss_source(self, rss_feed) -> list[str]:
         rss_feed = feedparser.parse(rss_feed)
         return [entry.source for entry in rss_feed.entries]
-        
-    def get_posts_details(self,rss=None):
     
+    def get_rss_descr(self, rss_feed) -> list[str]:
+        rss_feed = feedparser.parse(rss_feed)
+        return [entry.description for entry in rss_feed.description]    
+    def get_posts_details(self,rss=None,beforeDays = 1,rssProp=None,searchFor=None) -> list[str]:
+        current_time = datetime.now() - timedelta(days=beforeDays)
+        #final time format
+        format = "%Y-%m-%d %H:%M:%S.%f"
+
+        #newformat = "%a, %d %b %Y %H:%M:%S %Z"
+        newformat = "%Y-%m-%dT%H:%M:%SZ"
+        new_current_time = datetime.strptime(str(current_time),format)
+        pprint.pprint(new_current_time)
+        date_time = parser.parse(str(current_time))
+        pprint.pprint(date_time)
+        #new_current_time = current_time.strptime(newformat)
         """
         Take link of rss feed as argument
         """
@@ -54,19 +71,28 @@ class RSSHelper:
             post_list = []
               
             # iterating over individual posts
-            for post in posts:
+            for post in (post for post in posts if parser.parse(post.published).replace(tzinfo=timezone.utc) > current_time.replace(tzinfo=timezone.utc)):
                 temp = dict()
                   
                 # if any post doesn't have information then throw error.
                 try:
-                    temp["title"] = post.title
-                    temp["link"] = post.link
-                    temp["author"] = post.author
-                    temp["time_published"] = post.published
-                    temp["tags"] = [tag.term for tag in post.tags]
-                    temp["authors"] = [author.name for author in post.authors]
-                    temp["summary"] = post.summary
-                    temp["description"] = post.description
+                    if rssProp is None:
+                        temp["title"] = post.title
+                        temp["link"] = post.link
+                        temp["author"] = post.author
+                        temp["time_published"] = post.published
+                        temp["tags"] = [tag.term for tag in post.tags]
+                        temp["authors"] = [author.name for author in post.authors]
+                        temp["summary"] = post.summary
+                        temp["description"] = post.description
+                    elif rssProp.lower() == "description" and searchFor is None or searchFor is not None and re.search(searchFor.lower(),post.description.lower()):
+                        temp["description"] = post.description
+                    elif rssProp.lower() == "summary" and searchFor is None or searchFor is not None and re.search(searchFor.lower(),post.summary.lower()):
+                        temp["description"] = post.summary
+                    elif rssProp.lower() == "title" and searchFor is None or searchFor is not None and re.search(searchFor.lower(),post.title.lower()):
+                        temp["title"] = post.title
+                    else:
+                        continue
                 except:
                     pass
                   
