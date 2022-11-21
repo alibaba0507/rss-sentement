@@ -8,5 +8,5 @@ transformers
 vaderSentiment
 datetime
 requests
-fastapi
-uvicorn
+flask
+flask-restful

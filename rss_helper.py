@@ -41,7 +41,7 @@ class RSSHelper:
     def get_posts_details(self,rss=None,beforeDays = 1,rssProp=None,searchFor=None) -> list[str]:
         if len(searchFor) == 0:
             searchFor = None
-        current_time = datetime.now() - timedelta(days=beforeDays)
+        current_time = datetime.now() - timedelta(days=int(beforeDays))
         #final time format
         format = "%Y-%m-%d %H:%M:%S.%f"
 
@@ -59,16 +59,26 @@ class RSSHelper:
             
             # import the library only when url for feed is passed
             #import feedparser
-              
+            #rss = rss.strip('\"')
+            #rss = rss.strip("\'")
             # parsing blog feed
             blog_feed = blog_feed = feedparser.parse(rss)
               
             # getting lists of blog entries via .entries
             posts = blog_feed.entries
-              
+            pprint.pprint(blog_feed.feed)
+            pprint.pprint(rss)
             # dictionary for holding posts details
-            posts_details = {"Blog title" : blog_feed.feed.title,
-                            "Blog link" : blog_feed.feed.link}
+            
+            t = "NA"
+            if blog_feed.feed.title:
+                t = blog_feed.feed.title
+            l = "NA"
+            if blog_feed.feed.link:
+                l = blog_feed.feed.link
+            
+            posts_details = {"Blog title" : "NA",
+                            "Blog link" : "NA"}
               
             post_list = []
               
