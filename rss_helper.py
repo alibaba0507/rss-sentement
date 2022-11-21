@@ -88,7 +88,7 @@ class RSSHelper:
                     elif rssProp.lower() == "description" and searchFor is None or searchFor is not None and re.search(searchFor.lower(),post.description.lower()):
                         temp["description"] = post.description
                     elif rssProp.lower() == "summary" and searchFor is None or searchFor is not None and re.search(searchFor.lower(),post.summary.lower()):
-                        temp["description"] = post.summary
+                        temp["summary"] = post.summary
                     elif rssProp.lower() == "title" and searchFor is None or searchFor is not None and re.search(searchFor.lower(),post.title.lower()):
                         temp["title"] = post.title
                     else:

@@ -6,4 +6,5 @@ spacy
 trafilatura
 transformers
 vaderSentiment
-datetime 
+datetime
+requests

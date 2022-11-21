@@ -12,11 +12,14 @@ rsh = RSSHelper()
 links = rsh.get_posts_details(rss_feed,3,"description","Euro")
 #pprint.pprint(links)
 #links = rsh.get_rss_descr(rss_feed)
+sum_compount = 0.0
 s  = Sentiment()
+
 for link in links["posts"]:
     l = s.split_on_sentences(link["description"],"Euro")
+    sum_compount += float(s.sentiment_scores(l)["compound"])
     pprint.pprint(s.sentiment_scores(l)["compound"])
-    
+pprint.pprint("Compound Sentiment is :" + str(sum_compount))
 parser = HTML_Parser()
 '''
  This range [0:1] is just for test
