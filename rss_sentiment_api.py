@@ -1,12 +1,19 @@
 from flask import Flask,request,jsonify
 from flask_restful import Api, Resource, reqparse
+from flask_httpauth import HTTPBasicAuth
 from rss_helper import RSSHelper
 from sentiment import Sentiment
 import pprint
 import json
-
+"""
 app = Flask(__name__)
-api = Api(app)
+#api = Api(app)
+api = Api(app, prefix="/api/v1")
+auth = HTTPBasicAuth()
+USER_DATA = {
+	"admin": "SuperSecretPwd"
+}
+"""
 
 @app.route("/rss_sentiment", methods = ['GET'])
 def rss_sentiment():
