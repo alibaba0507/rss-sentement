@@ -14,9 +14,13 @@ USER_DATA = {
 	"admin": "SuperSecretPwd"
 }
 """
+JWT_SECRET_KEY = 't1NP63m4wnBg6nyHYKfmc2TpCOGI4nss'
 
 @app.route("/rss_sentiment", methods = ['GET'])
 def rss_sentiment():
+    token = request.args.get('t')
+    if token is None or token != JWT_SECRET_KEY:
+        return jsonify({"err":"Invalid token parameters."})
     rss_url = request.args.get('rss_url')
     if rss_url is None:
         return jsonify({"err":"Invalid URL parameters."})
