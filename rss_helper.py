@@ -39,6 +39,8 @@ class RSSHelper:
         rss_feed = feedparser.parse(rss_feed)
         return [entry.description for entry in rss_feed.description]    
     def get_posts_details(self,rss=None,beforeDays = 1,rssProp=None,searchFor=None) -> list[str]:
+        if len(searchFor) == 0:
+            searchFor = None
         current_time = datetime.now() - timedelta(days=beforeDays)
         #final time format
         format = "%Y-%m-%d %H:%M:%S.%f"

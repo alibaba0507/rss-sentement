@@ -8,3 +8,5 @@ transformers
 vaderSentiment
 datetime
 requests
+fastapi
+uvicorn

@@ -7,6 +7,8 @@ class Sentiment:
     def __init__(self) -> None:
         return
     def split_on_sentences(self,text,searchFor = None):
+        if len(searchFor) == 0:
+            searchFor = None
         m = re.split(r'(?<=[^A-Z].[.?]) +(?=[A-Z])', text)
         if searchFor is None:
             return m
