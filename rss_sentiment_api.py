@@ -1,25 +1,30 @@
 from flask import Flask,request,jsonify
 from flask_restful import Api, Resource, reqparse
-from flask_httpauth import HTTPBasicAuth
+#from flask_httpauth import HTTPBasicAuth
 from rss_helper import RSSHelper
 from sentiment import Sentiment
 import pprint
 import json
-"""
+
 app = Flask(__name__)
-#api = Api(app)
+api = Api(app)
+'''
 api = Api(app, prefix="/api/v1")
 auth = HTTPBasicAuth()
 USER_DATA = {
 	"admin": "SuperSecretPwd"
 }
-"""
+'''
 JWT_SECRET_KEY = 't1NP63m4wnBg6nyHYKfmc2TpCOGI4nss'
 
 @app.route("/rss_sentiment", methods = ['GET'])
 def rss_sentiment():
     token = request.args.get('t')
-    if token is None or token != JWT_SECRET_KEY:
+    if token is None:
+        return jsonify({"err":"Invalid token parameters."})
+    token = token.strip('\"')
+    token = token.strip("\'")
+    if token != JWT_SECRET_KEY:
         return jsonify({"err":"Invalid token parameters."})
     rss_url = request.args.get('rss_url')
     if rss_url is None:
