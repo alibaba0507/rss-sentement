@@ -8,6 +8,7 @@ transformers
 vaderSentiment
 datetime
 requests
+gunicorn==20.1.0
 flask
 flask-restful
 flask-httpauth
