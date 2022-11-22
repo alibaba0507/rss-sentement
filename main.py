@@ -1,8 +1,8 @@
 import os
 from flask import Flask,request,jsonify
-from rss_helper import RSSHelper
-from sentiment import Sentiment
-import pprint
+#from rss_helper import RSSHelper
+#from sentiment import Sentiment
+#import pprint
 #import json
 
 app = Flask(__name__)
@@ -13,7 +13,7 @@ JWT_SECRET_KEY = 't1NP63m4wnBg6nyHYKfmc2TpCOGI4nss'
 def hello_world():
     name = os.environ.get("NAME", "World")
     return "Hello {}!".format(name)
-
+'''
 @app.route("/rss_sentiment", methods = ['GET'])
 def rss_sentiment():
     token = request.args.get('t')
@@ -55,7 +55,7 @@ def rss_sentiment():
         #pprint.pprint("Compound Sentiment is :" + str(sum_compount))
     d = {"rss_url":rss_url,"q":query,"searchFor":query,"overall_sentiment":round(sum_compount,2)}
     return jsonify(d)
-
+'''
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
