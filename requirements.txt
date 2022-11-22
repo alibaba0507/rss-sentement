@@ -9,3 +9,4 @@ vaderSentiment
 datetime
 requests
 flask
+gunicorn==20.1.0
