@@ -9,4 +9,3 @@ vaderSentiment
 datetime
 requests
 flask
-pyjwt
