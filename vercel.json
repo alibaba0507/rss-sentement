@@ -4,18 +4,14 @@
         {
             "src": "./main.py",
             "use": "@vercel/python",
-			"api/**/*.py": {
-					"excludeFiles": ["**/*.html","**/*.pyc","**/*.pyo","**/*.pyd","__pycache__/**",".pytest_cache/**"]
-		    }
+			
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
             "dest": "/",
-			"api/**/*.py": {
-				"excludeFiles": ["**/*.html","**/*.pyc","**/*.pyo","**/*.pyd","__pycache__/**",".pytest_cache/**"]
-		    }
+			
         }
     ]
 }
